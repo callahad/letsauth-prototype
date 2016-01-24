@@ -1,0 +1,17 @@
+<form action="{{ endpoint }}" method="post">
+  Address confirmed!
+  <input type="submit" value="Return to {{ where }}" />
+  <input type="hidden" name="assertion" value="{{ assertion }}" />
+</form>
+
+<script>
+  (function () {
+    var form = document.querySelector('form');
+    var submit = document.querySelector('input[type=submit]');
+
+    submit.disabled = true;
+    submit.value = submit.value.replace('Return', 'Returning') + '...'
+
+    form.submit();
+  })();
+</script>
