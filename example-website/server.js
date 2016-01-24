@@ -46,6 +46,10 @@ router.post('/authback', function* (next) {
 
   if (added === 0) { this.throw(400, 'Certificate already used'); }
 
+  // FIXME: Rethink this scheme. In this implementation, every time a user
+  // re-auths, the key's TTL gets reset. A malicious user could exploit this to
+  // consume all available memory.
+
   yield redis.pexpire(given.email, given.expires + skew * 2);
 
   this.body = `Congratulations! You've proven your identity as ${given.email}!`
